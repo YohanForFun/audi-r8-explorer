@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="探索 Audi R8 的楔形车身、双座驾驶舱、中置 V10、空间框架与双叉臂悬挂。可开门、开盖、透明显示、分层展开，并可下载 GLB 模型。" />
+<title>Audi R8 · 结构探索工作台</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="css/app.css" />
+<script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }</script>
+</head>
+<body class="theme-light">
+<div id="stage"></div>
+<div id="labels"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-bar"></span>
+    <span class="rings" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="brand-name">Audi</span><span class="badge">R8</span>
+    <span class="brand-sep"></span>
+    <span class="brand-tag">Audi R8 结构探索工作台 · 中置 V10，内外之间。</span>
+  </div>
+  <div class="top-actions">
+    <span class="live"><i></i>实时 3D</span>
+    <button class="btn btn-dark" id="btnDownload" title="导出当前装配体为 GLB"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 19h14"/></svg>下载模型</button>
+    <button class="btn btn-dark" id="btnFull"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>全屏显示</span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow" id="heroEyebrow">ARA BLUE / CARBON · R8 V10</div>
+  <div class="hero-title"><h1><span>R</span><em>8</em></h1><p>楔形车身之下，<br />一台中置 V10</p></div>
+  <p class="hero-sub">程序化建模的二代 R8 风格结构示意。</p>
+  <div class="swatches" id="swatches">
+    <button data-c="#173a86" data-n="ARA BLUE" class="on" title="阿拉蓝" style="--c:#173a86"></button>
+    <button data-c="#8e9297" data-n="SUZUKA GREY" title="铃鹿灰" style="--c:#8e9297"></button>
+    <button data-c="#e9ebee" data-n="GLACIER WHITE" title="冰川白" style="--c:#e9ebee"></button>
+    <button data-c="#e3b10b" data-n="VEGAS YELLOW" title="维加斯黄" style="--c:#e3b10b"></button>
+    <button data-c="#8f1018" data-n="TANGO RED" title="探戈红" style="--c:#8f1018"></button>
+  </div>
+</section>
+
+<nav class="nav">
+  <div class="eyebrow">EXPLORE THE MACHINE · 结构导航</div>
+  <ul id="navList"></ul>
+</nav>
+
+<div class="seg seg-top" id="segExplode">
+  <button data-v="0" class="on"><svg viewBox="0 0 24 24"><path d="M3 14l2-5h14l2 5v3H3z"/></svg>整车视图</button>
+  <button data-v="1"><svg viewBox="0 0 24 24"><path d="M12 3l8 4-8 4-8-4z M4 12l8 4 8-4 M4 17l8 4 8-4"/></svg>分层展开</button>
+</div>
+<div class="stats">
+  <div><b>5.2<small>L</small></b><span>自然吸气 V10</span></div>
+  <div><b>V10</b><span>中置发动机</span></div>
+  <div><b>quattro</b><span>四驱 / 另有后驱</span></div>
+</div>
+
+<aside class="card" id="card" hidden>
+  <div class="card-eyebrow" id="cardEn"></div>
+  <button class="card-x" id="cardClose" title="关闭讲解">×</button>
+  <h3 id="cardTitle"></h3>
+  <p id="cardDesc"></p>
+  <div class="tags" id="cardTags"></div>
+  <div class="card-part" id="cardPart"></div>
+  <div class="card-actions">
+    <button class="btn btn-ghost" id="cardHide">关闭讲解</button>
+    <button class="btn btn-accent" id="cardFocus">聚焦这一结构 <span>↗</span></button>
+  </div>
+</aside>
+<button class="reopen" id="cardOpen" hidden>查看讲解</button>
+
+<div class="tools">
+  <button id="zIn" title="放大">＋</button>
+  <button id="zOut" title="缩小">－</button>
+  <button id="btnReset" title="重置模型"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v5h5"/></svg></button>
+  <button id="btnRotate" title="自动旋转"><svg viewBox="0 0 24 24"><path d="M12 5a7 7 0 1 1-6.6 4.7"/><path d="M3 6l2.4 3.7L9 7.5"/></svg></button>
+</div>
+
+<div class="dock">
+  <div class="dock-group">
+    <div class="dock-label">模型表现</div>
+    <div class="chips" id="matModes">
+      <button data-m="orig" class="on"><i class="dot"></i>原色</button>
+      <button data-m="clay"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/></svg>白模</button>
+      <button data-m="wire"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z M4 12h16 M12 4v16"/></svg>线框</button>
+    </div>
+  </div>
+  <div class="dock-sep"></div>
+  <div class="dock-group slider">
+    <label class="dock-label" for="visRange">车身可见度<b id="visVal">100%</b></label>
+    <input type="range" id="visRange" min="0" max="100" value="100" />
+    <div class="ends"><button data-vis="0">仅内部</button><button data-vis="100">完整车身</button></div>
+  </div>
+  <div class="dock-group slider">
+    <label class="dock-label" for="exRange">结构展开<b id="exVal">0%</b></label>
+    <input type="range" id="exRange" min="0" max="100" value="0" />
+    <div class="ends"><button data-ex="0">组装</button><button data-ex="100">分离</button></div>
+  </div>
+  <div class="dock-sep"></div>
+  <div class="dock-group toggles">
+    <label class="tg"><svg viewBox="0 0 24 24"><path d="M5 20V6l9-3v17M14 7h4v13"/></svg>打开车门<input type="checkbox" id="tgDoors" /><span></span></label>
+    <label class="tg"><svg viewBox="0 0 24 24"><path d="M3 15l3-6h12l3 6v3H3z M7 9l2-4h6"/></svg>打开前后盖<input type="checkbox" id="tgLids" /><span></span></label>
+  </div>
+  <div class="dock-group icons">
+    <button id="btnLight" title="切换展厅灯光"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></button>
+    <button id="btnLabels" title="显示结构标注"><svg viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
+</div>
+
+<div class="hint">拖动旋转 · 滚轮缩放 · 点击部件探索</div>
+<div class="credit">结构示意模型 · 程序化生成（非原厂 CAD 数据） · <a href="https://threejs.org/" target="_blank" rel="noopener">three.js</a> ↗</div>
+<div class="toast" id="toast"></div>
+
+<div id="loading"><div class="ld-rings"><i></i><i></i><i></i><i></i></div><p>正在组装 R8…</p><div class="ld-bar"><span></span></div></div>
+<div id="nogl" hidden><h2>无法启动 3D 视图</h2><p>你的浏览器或显卡未能启用 WebGL。请使用最新版 Chrome / Edge / Safari，并在设置中开启“硬件加速”后刷新页面。</p></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

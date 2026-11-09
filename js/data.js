@@ -1,0 +1,28 @@
+export const CATS = [
+  { key: 'body', no: '01', icon: 'car', name: '车身与空气动力', en: 'BODY & AERODYNAMICS', title: '楔形车身与侧刀',
+    desc: '低而宽的中置发动机楔形车身。车头是 Audi 家族式的六边形单框格栅（蜂窝网格）与锐利的 LED 大灯；车门后方的侧刀（Sideblade）是 R8 的标志性设计，侧进气口就位于这里；车尾为细长尾灯、黑色格栅与扩散器。',
+    tags: ['单框格栅', '侧刀进气', '后扩散器'], dir: [5.6, 2.0, 6.2], dist: 8, target: [0, 0.5, 0] },
+  { key: 'cockpit', no: '02', icon: 'gauge', name: '双座驾驶舱', en: "DRIVER'S COCKPIT", title: '以驾驶者为中心的座舱',
+    desc: '两座布局，座椅紧贴中置发动机前方的隔板。二代 R8 用 12.3 英寸 Audi virtual cockpit 全液晶仪表承担仪表与信息显示，平底方向盘可集成驾驶模式等卫星按键。此处座椅、仪表台均为结构示意。',
+    tags: ['virtual cockpit', '平底方向盘', '运动座椅'], dir: [0.35, 1.0, -0.75], dist: 6.2, target: [0.1, 0.65, -0.1], fade: 0.15 },
+  { key: 'power', no: '03', icon: 'engine', name: '动力与传动', en: 'V10 POWERTRAIN', title: '中置 5.2L V10 与 S tronic',
+    desc: '5.2 升自然吸气 V10 纵置于座舱后方、后轴之前，两列气缸呈 90° 夹角，每列 5 缸。7 速 S tronic 双离合变速箱位于发动机后方；quattro 版本由传动轴把部分扭矩送往前桥，另有后驱版本。图中各部件为示意几何。',
+    tags: ['5.2L V10', '7 速 S tronic', 'quattro / 后驱'], dir: [-0.55, 0.8, 0.8], dist: 7.2, target: [-1.2, 0.5, 0], fade: 0.12 },
+  { key: 'cooling', no: '04', icon: 'flow', name: '冷却与排气', en: 'COOLING, FUEL & EXHAUST', title: '冷却、燃油与排气路径',
+    desc: '散热器布置在车头，冷却液管路沿底盘通往中置发动机；侧刀处的进气口为发动机舱引入空气。每列气缸的排气歧管经催化器汇入后部消声器，从尾部两只椭圆尾管排出。燃油箱位于座舱前方（示意位置）。',
+    tags: ['前置散热器', '侧进气道', '椭圆尾管'], dir: [0.6, 0.55, 0.75], dist: 9.0, target: [0.1, 0.45, 0], fade: 0.12 },
+  { key: 'chassis', no: '05', icon: 'frame', name: '车架与底盘', en: 'AUDI SPACE FRAME', title: '铝 + CFRP 空间框架',
+    desc: '奥迪空间框架（ASF）以铝合金挤压型材、铸件和板件构成主体；二代 R8 在 B 柱、中央通道和后隔板等部位使用碳纤维增强塑料（CFRP），在保证刚性的同时降低重量。图中银色为铝结构，深色编织纹为 CFRP。',
+    tags: ['铝合金 ASF', 'CFRP 构件', '轻量化'], dir: [0.6, 0.75, 0.8], dist: 9.2, target: [0, 0.5, 0], fade: 0.08 },
+  { key: 'suspension', no: '06', icon: 'disc', name: '悬挂与制动', en: 'SUSPENSION & BRAKES', title: '四轮双叉臂与大尺寸制动',
+    desc: '四个车轮均采用双叉臂独立悬挂，配螺旋弹簧与减振器（可选磁流变减振）。制动为大尺寸通风盘，可选碳陶瓷制动盘；示意中以红色多活塞卡钳标出。',
+    tags: ['双叉臂', '螺旋弹簧减振', '通风盘'], dir: [0.7, 0.35, 0.85], dist: 4.6, target: [1.19, 0.4, 0.7], fade: 0.2 },
+];
+export const ICONS = {
+  car: '<path d="M3 13l2-5h14l2 5v4H3z M6 17v2 M18 17v2 M5 13h14"/>',
+  gauge: '<path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4-5"/>',
+  engine: '<path d="M4 10h3l2-2h5l2 2h3v7H4z"/><path d="M9 8V6h5v2"/>',
+  flow: '<path d="M3 8h12a3 3 0 1 0-3-3"/><path d="M3 13h16a3 3 0 1 1-3 3"/>',
+  frame: '<path d="M3 17L8 7h8l5 10z"/><path d="M8 7l4 10 4-10"/>',
+  disc: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M20 12h-3"/>',
+};
